@@ -4,6 +4,7 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth.routes");
 const siteRoutes = require("./routes/site.routes");
+const featuredCaseStudyRoutes = require("./routes/featuredCaseStudy.routes");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/site", siteRoutes);
+app.use("/api/common/featured-case-studies", featuredCaseStudyRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

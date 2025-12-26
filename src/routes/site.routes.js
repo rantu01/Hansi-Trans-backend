@@ -1,22 +1,14 @@
 const express = require("express");
+const router = express.Router();
+const upload = require("../middlewares/upload");
 const {
   getSiteConfig,
   updateSiteConfig,
 } = require("../controllers/site.controller");
-const authMiddleware = require("../middlewares/auth.middleware");
-const roleMiddleware = require("../middlewares/role.middleware");
 
-const router = express.Router();
-
-// PUBLIC
 router.get("/", getSiteConfig);
 
-// ADMIN ONLY
-router.put(
-  "/",
-  authMiddleware,
-  roleMiddleware("admin"),
-  updateSiteConfig
-);
+// 🔥 upload.single("logo") VERY IMPORTANT
+router.put("/", upload.single("logo"), updateSiteConfig);
 
 module.exports = router;

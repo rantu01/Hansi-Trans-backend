@@ -1,60 +1,52 @@
 const SiteConfig = require("../models/SiteConfig");
 
 /**
- * @desc Get site config (PUBLIC)
- * @route GET /api/site
+ * GET site config
  */
 const getSiteConfig = async (req, res) => {
   try {
     let config = await SiteConfig.findOne();
-
-    // first time init
-    if (!config) {
-      config = await SiteConfig.create({
-        logo: "",
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      data: config,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+    if (!config) config = await SiteConfig.create({});
+    res.json({ success: true, data: config });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
 /**
- * @desc Update site config (ADMIN)
- * @route PUT /api/site
+ * UPDATE site config (with image upload)
  */
 const updateSiteConfig = async (req, res) => {
   try {
-    const { logo } = req.body;
+    const {
+      brandText,
+      footerText,
+      footerAddress,
+      copyrightText,
+    } = req.body;
 
     let config = await SiteConfig.findOne();
+    if (!config) config = new SiteConfig();
 
-    if (!config) {
-      config = new SiteConfig();
+    // 🔹 If logo uploaded
+    if (req.file?.path) {
+      config.logo = req.file.path; // cloudinary url
     }
 
-    if (logo) config.logo = logo;
+    if (brandText) config.brandText = brandText;
+    if (footerText) config.footerText = footerText;
+    if (footerAddress) config.footerAddress = footerAddress;
+    if (copyrightText) config.copyrightText = copyrightText;
 
     await config.save();
 
-    res.status(200).json({
+    res.json({
       success: true,
-      message: "Site config updated",
+      message: "Site config updated successfully",
       data: config,
     });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
