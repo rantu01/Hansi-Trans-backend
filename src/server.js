@@ -7,6 +7,8 @@ const siteRoutes = require("./routes/site.routes");
 const featuredCaseStudyRoutes = require("./routes/featuredCaseStudy.routes");
 const ourInfluencerRoutes = require("./routes/ourInfluencer.routes");
 const testimonialRoutes = require("./routes/testimonial.routes");
+const whyChooseUsRoutes = require("./routes/whyChooseUs.routes");
+
 
 const app = express();
 
@@ -28,7 +30,11 @@ app.use("/api/site", siteRoutes);
 app.use("/api/common/featured-case-studies", featuredCaseStudyRoutes);
 app.use("/api/common/our-influencers", ourInfluencerRoutes);
 app.use("/api/common/testimonials", testimonialRoutes);
+app.use("/api/common/why-choose-us", whyChooseUsRoutes);
 
+
+
+//------------------------------------------------------------------------------------
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
