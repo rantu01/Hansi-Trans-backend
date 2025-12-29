@@ -8,7 +8,7 @@ const featuredCaseStudyRoutes = require("./routes/featuredCaseStudy.routes");
 const ourInfluencerRoutes = require("./routes/ourInfluencer.routes");
 const testimonialRoutes = require("./routes/testimonial.routes");
 const whyChooseUsRoutes = require("./routes/whyChooseUs.routes");
-
+const workProcessRoutes = require("./routes/workProcess.routes");
 
 const app = express();
 
@@ -31,7 +31,7 @@ app.use("/api/common/featured-case-studies", featuredCaseStudyRoutes);
 app.use("/api/common/our-influencers", ourInfluencerRoutes);
 app.use("/api/common/testimonials", testimonialRoutes);
 app.use("/api/common/why-choose-us", whyChooseUsRoutes);
-
+app.use("/api/common/work-process", workProcessRoutes);
 
 
 //------------------------------------------------------------------------------------
