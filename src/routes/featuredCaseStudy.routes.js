@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const upload = require("../middlewares/upload");
 
 const {
   getAll,
@@ -15,8 +16,8 @@ const role = require("../middlewares/role.middleware");
 router.get("/", getAll);
 
 // ADMIN
-router.post("/", auth, role("admin"), create);
-router.put("/:id", auth, role("admin"), update);
+router.post("/", auth, role("admin"), upload.single("image"), create);
+router.put("/:id", auth, role("admin"), upload.single("image"), update);
 router.delete("/:id", auth, role("admin"), remove);
 
 module.exports = router;

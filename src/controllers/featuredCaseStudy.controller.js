@@ -1,74 +1,75 @@
 const FeaturedCaseStudy = require("../models/FeaturedCaseStudy");
+const cloudinary = require("../config/cloudinary");
 
-/**
- * PUBLIC – Get all case studies
- * GET /api/common/featured-case-studies
- */
+// GET all
 exports.getAll = async (req, res) => {
   try {
     const data = await FeaturedCaseStudy.find().sort({ createdAt: -1 });
-
-    res.json({
-      success: true,
-      data,
-    });
+    res.json({ success: true, data });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 };
 
-/**
- * ADMIN – Create
- * POST /api/common/featured-case-studies
- */
+// CREATE
 exports.create = async (req, res) => {
   try {
-    const item = await FeaturedCaseStudy.create(req.body);
+    const payload = { ...req.body };
+    if (req.file && req.file.path) payload.image = req.file.path;
 
-    res.json({
-      success: true,
-      message: "Case study created",
-      data: item,
-    });
+    const item = await FeaturedCaseStudy.create(payload);
+    res.json({ success: true, message: "Case study created", data: item });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 };
 
-/**
- * ADMIN – Update
- * PUT /api/common/featured-case-studies/:id
- */
+// UPDATE
 exports.update = async (req, res) => {
   try {
+    const payload = { ...req.body };
+
+    // If new image uploaded, delete old one
+    if (req.file && req.file.path) {
+      const existing = await FeaturedCaseStudy.findById(req.params.id);
+      if (existing && existing.image) {
+        // extract public_id from URL
+        const publicId = existing.image
+          .split("/")
+          .slice(-1)[0]
+          .split(".")[0];
+        await cloudinary.uploader.destroy(`site/${publicId}`);
+      }
+      payload.image = req.file.path;
+    }
+
     const item = await FeaturedCaseStudy.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      payload,
       { new: true }
     );
 
-    res.json({
-      success: true,
-      message: "Case study updated",
-      data: item,
-    });
+    res.json({ success: true, message: "Case study updated", data: item });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 };
 
-/**
- * ADMIN – Delete
- * DELETE /api/common/featured-case-studies/:id
- */
+// DELETE
 exports.remove = async (req, res) => {
   try {
-    await FeaturedCaseStudy.findByIdAndDelete(req.params.id);
+    const existing = await FeaturedCaseStudy.findById(req.params.id);
+    if (existing && existing.image) {
+      // delete image from cloudinary
+      const publicId = existing.image
+        .split("/")
+        .slice(-1)[0]
+        .split(".")[0];
+      await cloudinary.uploader.destroy(`site/${publicId}`);
+    }
 
-    res.json({
-      success: true,
-      message: "Case study deleted",
-    });
+    await FeaturedCaseStudy.findByIdAndDelete(req.params.id);
+    res.json({ success: true, message: "Case study deleted" });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
