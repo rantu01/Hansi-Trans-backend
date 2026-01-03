@@ -24,7 +24,7 @@ This repository documentation serves as a **complete, beginner‑friendly yet pr
 
 ---
 
-## 📌 Project Overview
+## 1 Project Overview
 
 **Hansi‑Trans** is a modular content‑driven platform consisting of:
 
@@ -40,7 +40,7 @@ The system is designed to be:
 
 ---
 
-## 🏗️ System Architecture
+## 2 System Architecture
 
 ```
 [ Next.js Frontend ]  --->  [ Express API Server ]  --->  [ MongoDB ]
@@ -55,7 +55,7 @@ The system is designed to be:
 
 ---
 
-## 🚀 Tech Stack
+## 3 Tech Stack
 
 ### Frontend
 
@@ -74,14 +74,14 @@ The system is designed to be:
 
 ---
 
-## 📁 Repositories
+## 4 Repositories
 
 - **Frontend:** [https://github.com/rantu01/Hansi-Trans-](https://github.com/rantu01/Hansi-Trans-)
 - **Backend:** [https://github.com/rantu01/Hansi-Trans-backend](https://github.com/rantu01/Hansi-Trans-backend)
 
 ---
 
-## ✨ Application Features
+## 5 Application Features
 
 ### 🌍 Public Features
 
@@ -104,7 +104,7 @@ The system is designed to be:
 
 ---
 
-## ⚙️ Environment Setup
+## 6 Environment Setup
 
 ### Frontend `.env`
 
@@ -127,7 +127,7 @@ CLOUDINARY_API_SECRET=
 
 ---
 
-## 🛠️ Backend Setup (Tutorial)
+## 7 Backend Setup (Tutorial)
 
 ### 1️⃣ Clone Backend Repository
 
@@ -159,7 +159,7 @@ http://localhost:5000
 
 ---
 
-## 🎨 Frontend Setup (Tutorial)
+## 8 Frontend Setup (Tutorial)
 
 ### 1️⃣ Clone Frontend Repository
 
@@ -191,7 +191,7 @@ http://localhost:3000
 
 ---
 
-## 🔐 Authentication Flow (How It Works)
+## 9 Authentication Flow (How It Works)
 
 1. Admin logs in via frontend
 2. Backend validates credentials
@@ -207,7 +207,7 @@ Authorization: Bearer <token>
 
 ---
 
-## 🔄 API Communication Flow
+## 10 API Communication Flow
 
 - Frontend sends requests using `NEXT_PUBLIC_API_BASE_URL`
 - Public APIs are accessible without token
@@ -222,7 +222,7 @@ POST /api/testimonials (protected)
 
 ---
 
-## 🧪 Development Workflow
+## 11 Development Workflow
 
 - Run backend first
 - Run frontend second
@@ -231,7 +231,7 @@ POST /api/testimonials (protected)
 
 ---
 
-## 🛡️ Best Practices Followed
+## 12 Best Practices Followed
 
 - MVC‑style backend architecture
 - Token‑based security
@@ -241,7 +241,7 @@ POST /api/testimonials (protected)
 
 ---
 
-## 🚀 Deployment Notes
+## 13 Deployment Notes
 
 - Frontend can be deployed on **Vercel**
 - Backend can be deployed on **Render / VPS / Railway**
