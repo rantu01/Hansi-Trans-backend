@@ -12,6 +12,7 @@ const workProcessRoutes = require("./routes/workProcess.routes");
 const uploadRoutes = require("./routes/upload.routes");
 const aboutRoutes = require("./routes/aboutUs.routes");
 const domainsRoutes = require("./routes/domains.routes");
+const serviceRoutes = require("./routes/services.routes");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/site", siteRoutes);
+app.use("/api/services", serviceRoutes);
 app.use("/api/about-us", aboutRoutes);
 app.use("/api/common/featured-case-studies", featuredCaseStudyRoutes);
 app.use("/api/common/our-influencers", ourInfluencerRoutes);
