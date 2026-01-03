@@ -7,16 +7,25 @@ const serviceSchema = new mongoose.Schema({
   image: { type: String, required: true },
   bgColor: { type: String, default: 'bg-[#e0f2fe]' }, // Default light blue
   features: [{ type: String }],
-  
+
+  // 🔹 নতুন ফিল্ড: Professional Support সেকশনের জন্য
+  professionalSupports: [
+    {
+      title: { type: String },
+      description: { type: String },
+      image: { type: String }
+    }
+  ],
+
   // SEO & Meta
   metaTitle: { type: String },
   metaDescription: { type: String },
 
   // For Nested Structure
-  parentService: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'Service', 
-    default: null 
+  parentService: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Service',
+    default: null
   }
 }, { timestamps: true });
 
