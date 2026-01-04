@@ -15,6 +15,7 @@ const domainsRoutes = require("./routes/domains.routes");
 const serviceRoutes = require("./routes/services.routes");
 const statRoutes = require('./routes/statRoutes');
 const partnerRoutes = require('./routes/partnerRoutes');
+const caseStudyRoutes = require('./routes/caseStudyRoutes');
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use("/api/common/domains", domainsRoutes);
 app.use('/api/common/stats', statRoutes);
 app.use('/api/common/partners', partnerRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use('/api/case-studies', caseStudyRoutes);
 
 
 
