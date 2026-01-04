@@ -13,6 +13,8 @@ const uploadRoutes = require("./routes/upload.routes");
 const aboutRoutes = require("./routes/aboutUs.routes");
 const domainsRoutes = require("./routes/domains.routes");
 const serviceRoutes = require("./routes/services.routes");
+const statRoutes = require('./routes/statRoutes');
+const partnerRoutes = require('./routes/partnerRoutes');
 
 const app = express();
 
@@ -39,6 +41,8 @@ app.use("/api/common/testimonials", testimonialRoutes);
 app.use("/api/common/why-choose-us", whyChooseUsRoutes);
 app.use("/api/common/work-process", workProcessRoutes);
 app.use("/api/common/domains", domainsRoutes);
+app.use('/api/common/stats', statRoutes);
+app.use('/api/common/partners', partnerRoutes);
 app.use("/api/upload", uploadRoutes);
 
 
