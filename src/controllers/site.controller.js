@@ -14,29 +14,28 @@ const getSiteConfig = async (req, res) => {
 };
 
 /**
- * UPDATE site config (with image upload)
+ * UPDATE site config (with multi-image upload)
  */
 const updateSiteConfig = async (req, res) => {
   try {
-    const {
-      brandText,
-      footerText,
-      footerAddress,
-      copyrightText,
-    } = req.body;
-
+    const updateData = { ...req.body };
     let config = await SiteConfig.findOne();
     if (!config) config = new SiteConfig();
 
-    // 🔹 If logo uploaded
-    if (req.file?.path) {
-      config.logo = req.file.path; // cloudinary url
+    // লোগো এবং CTA ইমেজ ফাইল চেক করা ও সেভ করা
+    if (req.files) {
+      if (req.files["logo"]) {
+        config.logo = req.files["logo"][0].path; // Cloudinary or Local Path
+      }
+      if (req.files["ctaImage"]) {
+        config.ctaImage = req.files["ctaImage"][0].path;
+      }
     }
 
-    if (brandText) config.brandText = brandText;
-    if (footerText) config.footerText = footerText;
-    if (footerAddress) config.footerAddress = footerAddress;
-    if (copyrightText) config.copyrightText = copyrightText;
+    // বাকি সব টেক্সট ফিল্ড আপডেট করা
+    Object.keys(updateData).forEach((key) => {
+      config[key] = updateData[key];
+    });
 
     await config.save();
 

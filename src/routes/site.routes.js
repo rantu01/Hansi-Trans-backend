@@ -8,7 +8,14 @@ const {
 
 router.get("/", getSiteConfig);
 
-// 🔥 upload.single("logo") VERY IMPORTANT
-router.put("/", upload.single("logo"), updateSiteConfig);
+// একাধিক ইমেজ ফিল্ড (logo এবং ctaImage) হ্যান্ডেল করার জন্য:
+router.put(
+  "/",
+  upload.fields([
+    { name: "logo", maxCount: 1 },
+    { name: "ctaImage", maxCount: 1 },
+  ]),
+  updateSiteConfig
+);
 
 module.exports = router;
