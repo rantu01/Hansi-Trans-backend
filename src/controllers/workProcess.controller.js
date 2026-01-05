@@ -4,7 +4,8 @@ const WorkProcess = require("../models/workProcess.model");
 exports.getWorkProcess = async (req, res) => {
   try {
     const data = await WorkProcess.findOne().lean();
-    res.json(data || { steps: [], studios: [] });
+    // Default হিসেবে tools: [] যোগ করা হয়েছে
+    res.json(data || { steps: [], studios: [], tools: [] });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to fetch work process" });
@@ -14,9 +15,10 @@ exports.getWorkProcess = async (req, res) => {
 /* ================= UPSERT ================= */
 exports.upsertWorkProcess = async (req, res) => {
   try {
-    let { steps = [], studios = [] } = req.body;
+    // tools ফিল্ডটি body থেকে নেওয়া হচ্ছে
+    let { steps = [], studios = [], tools = [] } = req.body;
 
-    /* 🔥 REMOVE _id FROM CHILD ARRAYS */
+    /* 🔥 CLEAN STEPS */
     steps = steps.map(({ _id, ...rest }) => ({
       title: rest.title || "",
       desc: rest.desc || "",
@@ -24,19 +26,27 @@ exports.upsertWorkProcess = async (req, res) => {
       topIcon: rest.topIcon || "",
     }));
 
+    /* 🔥 CLEAN STUDIOS */
     studios = studios.map(({ _id, ...rest }) => ({
       code: rest.code || "",
       name: rest.name || "",
       lang: rest.lang || "",
     }));
 
+    /* 🔥 CLEAN TOOLS (নতুন অংশ) */
+    tools = tools.map(({ _id, ...rest }) => ({
+      name: rest.name || "",
+      image: rest.image || "", // টুলের আইকন বা ইমেজ স্টোর করার জন্য
+    }));
+
     let data = await WorkProcess.findOne();
 
     if (!data) {
-      data = await WorkProcess.create({ steps, studios });
+      data = await WorkProcess.create({ steps, studios, tools });
     } else {
       data.steps = steps;
       data.studios = studios;
+      data.tools = tools; // ডেটা আপডেট করা হচ্ছে
       await data.save();
     }
 
