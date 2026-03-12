@@ -11,6 +11,15 @@ router.get('/main/list', serviceController.getMainServices);
 // ৩. সাব-সার্ভিস রাউট
 router.get('/sub/:parentSlug', serviceController.getSubServices);
 
+// ৩b. Catch-all nested path (e.g. /path/music-sound-effects/music-sound)
+// Use a regex route to capture the rest of the path as the first capture group,
+// then copy it to `req.params.rest` for the controller.
+router.get(/^\/path\/(.*)$/, (req, res, next) => {
+	req.params = req.params || {};
+	req.params.rest = req.params[0];
+	return serviceController.getServiceByPath(req, res, next);
+});
+
 // ৪. সিঙ্গেল সার্ভিস স্ল্যাগ অনুযায়ী
 router.get('/:slug', serviceController.getServiceBySlug);
 

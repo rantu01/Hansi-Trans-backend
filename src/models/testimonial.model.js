@@ -14,6 +14,11 @@ const testimonialItemSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  // নতুন যোগ করা হয়েছে ইউটিউব ভিডিওর জন্য
+  videoUrl: {
+    type: String,
+    default: "",
+  },
   avatar: {
     type: String,
     default: "",

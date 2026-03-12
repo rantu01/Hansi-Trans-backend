@@ -25,19 +25,55 @@ const settingRoutes = require("./src/routes/settingRoutes");
 
 const app = express();
 
-// Middlewares
-app.use(cors());
-app.use(express.json());
+/* ===============================
+   CORS CONFIG (EXPRESS 5 SAFE)
+================================ */
 
-// DB Connect
+const allowedOrigins = [
+  "https://hansitrans.com",
+  "https://www.hansitrans.com",
+  "http://localhost:3000",
+];
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      callback(new Error("CORS not allowed"));
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  })
+);
+
+/* ===============================
+   MIDDLEWARES
+================================ */
+
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true }));
+
+/* ===============================
+   DATABASE
+================================ */
+
 connectDB();
 
-// Test Route
+/* ===============================
+   TEST ROUTE
+================================ */
+
 app.get("/", (req, res) => {
   res.send("CMS Backend Running 🚀");
 });
 
-// Routes
+/* ===============================
+   ROUTES
+================================ */
+
 app.use("/api/auth", authRoutes);
 app.use("/api/site", siteRoutes);
 app.use("/api/services", serviceRoutes);
@@ -57,8 +93,12 @@ app.use("/api/case-studies", caseStudyRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/site/settings", settingRoutes);
 
-// Server
+/* ===============================
+   SERVER
+================================ */
+
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
