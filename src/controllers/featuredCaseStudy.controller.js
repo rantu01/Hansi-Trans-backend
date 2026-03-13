@@ -1,6 +1,15 @@
 const FeaturedCaseStudy = require("../models/FeaturedCaseStudy");
 const cloudinary = require("../config/cloudinary");
 
+const normalizeSlug = (value = "") =>
+  value
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+
 // GET all
 exports.getAll = async (req, res) => {
   try {
@@ -15,6 +24,10 @@ exports.getAll = async (req, res) => {
 exports.create = async (req, res) => {
   try {
     const payload = { ...req.body };
+    payload.slug = normalizeSlug(payload.slug || payload.title);
+    if (!payload.slug) {
+      return res.status(400).json({ success: false, message: "Slug or title is required" });
+    }
     if (req.file && req.file.path) payload.image = req.file.path;
 
     const item = await FeaturedCaseStudy.create(payload);
@@ -28,6 +41,7 @@ exports.create = async (req, res) => {
 exports.update = async (req, res) => {
   try {
     const payload = { ...req.body };
+    if (payload.slug) payload.slug = normalizeSlug(payload.slug);
 
     // If new image uploaded, delete old one
     if (req.file && req.file.path) {

@@ -12,6 +12,52 @@ const statSchema = new mongoose.Schema(
   { _id: false }
 );
 
+const textSectionSchema = new mongoose.Schema(
+  {
+    title: String,
+    text: String,
+    points: [String],
+    highlight: String,
+    image: String,
+  },
+  { _id: false }
+);
+
+const cardSchema = new mongoose.Schema(
+  {
+    title: String,
+    description: String,
+  },
+  { _id: false }
+);
+
+const detailsContentSchema = new mongoose.Schema(
+  {
+    introduction: {
+      title: String,
+      text: String,
+    },
+    sectionOne: textSectionSchema,
+    sectionTwo: textSectionSchema,
+    richSectionOne: {
+      title: String,
+      text: String,
+      points: [String],
+    },
+    richSectionTwo: {
+      title: String,
+      cards: [cardSchema],
+    },
+    bannerImage: String,
+    quoteText: String,
+    conclusion: {
+      title: String,
+      text: String,
+    },
+  },
+  { _id: false }
+);
+
 const featuredCaseStudySchema = new mongoose.Schema(
   {
     slug: {
@@ -28,6 +74,7 @@ const featuredCaseStudySchema = new mongoose.Schema(
       default: false,
     },
     stats: [statSchema],
+    detailsContent: detailsContentSchema,
   },
   { timestamps: true }
 );
