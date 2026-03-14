@@ -8,12 +8,35 @@ const aboutUsSchema = new mongoose.Schema(
       videoImage: String,
     },
 
+    whoWeAre: {
+      badge: String,
+      description: String,
+      story: String,
+      statValue: String,
+      statLabel: String,
+      image: String,
+      avatars: [String],
+    },
+
+    coreMission: {
+      badge: String,
+      title: String,
+      description: String,
+      decorativeImage: String,
+    },
+
     workWithUs: {
       headline: String,
       buttonText: String,
     },
 
     company: {
+      badge: String,
+      sectionTitle: String,
+      sectionDescription: String,
+      missionLabel: String,
+      visionLabel: String,
+      ctaText: String,
       missionTitle: String,
       missionDescription: String,
       visionTitle: String,
@@ -22,6 +45,9 @@ const aboutUsSchema = new mongoose.Schema(
     },
 
     gallery: {
+      badge: String,
+      title: String,
+      description: String,
       images: [String],
     },
 

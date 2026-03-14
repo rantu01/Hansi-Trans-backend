@@ -44,6 +44,10 @@ const metaTagsSchema = new mongoose.Schema(
 
 const servicePageContentSchema = new mongoose.Schema(
   {
+    badgeText: { type: String, default: '' },
+    projectSummaryText: { type: String, default: '' },
+    featureDescription: { type: String, default: '' },
+    supportFeatures: [simpleContentCardSchema],
     subServicesTitle: { type: String, default: '' },
     subServicesDescription: { type: String, default: '' },
     supportTitle: { type: String, default: '' },
@@ -78,6 +82,8 @@ const serviceSchema = new mongoose.Schema(
     images: [{ type: String }],
     bgColor: { type: String, default: 'bg-[#e0f2fe]' },
     features: [{ type: String }],
+    supportFeatures: [simpleContentCardSchema],
+    featureDescription: { type: String, default: '' },
     professionalSupports: [cardSchema],
     metaTitle: { type: String, default: '' },
     metaDescription: { type: String, default: '' },

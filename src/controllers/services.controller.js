@@ -69,6 +69,10 @@ const sanitizeMetaTags = (value = {}) => ({
 });
 
 const sanitizeServicePageContent = (value = {}) => ({
+  badgeText: normalizeText(value.badgeText),
+  projectSummaryText: normalizeText(value.projectSummaryText),
+  featureDescription: normalizeText(value.featureDescription),
+  supportFeatures: sanitizeSimpleCards(value.supportFeatures),
   subServicesTitle: normalizeText(value.subServicesTitle),
   subServicesDescription: normalizeText(value.subServicesDescription),
   supportTitle: normalizeText(value.supportTitle),
@@ -106,6 +110,8 @@ const sanitizePayload = (payload = {}) => {
     images: sanitizeStringArray(payload.images),
     bgColor: normalizeText(payload.bgColor) || 'bg-[#e0f2fe]',
     features: sanitizeStringArray(payload.features),
+    supportFeatures: sanitizeSimpleCards(payload.supportFeatures),
+    featureDescription: normalizeText(payload.featureDescription),
     professionalSupports: sanitizeProfessionalSupports(payload.professionalSupports),
     metaTitle: normalizeText(payload.metaTitle),
     metaDescription: normalizeText(payload.metaDescription),
