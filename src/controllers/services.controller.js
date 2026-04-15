@@ -87,6 +87,7 @@ const sanitizeSubServicePageContent = (value = {}) => ({
   introDescription: normalizeText(value.introDescription),
   featureCards: sanitizeSimpleCards(value.featureCards),
   detailSections: sanitizeDetailSections(value.detailSections),
+  flowImage: normalizeText(value.flowImage),
   footerTitle: normalizeText(value.footerTitle),
   footerDescription: normalizeText(value.footerDescription),
 });

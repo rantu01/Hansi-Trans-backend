@@ -65,6 +65,7 @@ const subServicePageContentSchema = new mongoose.Schema(
     introDescription: { type: String, default: '' },
     featureCards: [simpleContentCardSchema],
     detailSections: [detailSectionSchema],
+    flowImage: { type: String, default: '' },
     footerTitle: { type: String, default: '' },
     footerDescription: { type: String, default: '' },
   },

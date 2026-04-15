@@ -5,6 +5,7 @@ const blogSectionSchema = new mongoose.Schema({
   text: { type: String },
   items: [{ type: String }], // For lists
   src: { type: String }, // For images
+  alt: { type: String },
 }, { _id: false });
 
 const blogSchema = new mongoose.Schema({

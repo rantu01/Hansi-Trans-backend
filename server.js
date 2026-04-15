@@ -22,6 +22,7 @@ const partnerRoutes = require("./src/routes/partnerRoutes");
 const caseStudyRoutes = require("./src/routes/caseStudyRoutes");
 const blogRoutes = require("./src/routes/blogRoutes");
 const settingRoutes = require("./src/routes/settingRoutes");
+const contactRoutes = require("./src/routes/contact.routes");
 
 const app = express();
 
@@ -92,6 +93,7 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/case-studies", caseStudyRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/site/settings", settingRoutes);
+app.use("/api/contact", contactRoutes);
 
 /* ===============================
    SERVER
