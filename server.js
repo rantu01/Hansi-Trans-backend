@@ -30,10 +30,16 @@ const app = express();
    CORS CONFIG (EXPRESS 5 SAFE)
 ================================ */
 
+const envOrigins = (process.env.ALLOWED_ORIGINS || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
 const allowedOrigins = [
   "https://hansitrans.com",
   "https://www.hansitrans.com",
   "http://localhost:3000",
+  ...envOrigins,
 ];
 
 app.use(
