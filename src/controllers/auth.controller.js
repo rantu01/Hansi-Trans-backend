@@ -45,6 +45,14 @@ const login = async (req, res) => {
       { expiresIn: "7d" }
     );
 
+    res.cookie("adminToken", token, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: "/",
+    });
+
     // 5️⃣ response (FRONTEND MATCH 🔥)
     res.json({
       success: true,
@@ -61,6 +69,20 @@ const login = async (req, res) => {
       message: error.message,
     });
   }
+};
+
+const logout = async (req, res) => {
+  res.clearCookie("adminToken", {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+  });
+
+  return res.json({
+    success: true,
+    message: "Logged out successfully",
+  });
 };
 
 
@@ -100,4 +122,4 @@ const createAdmin = async (req, res) => {
   }
 };
 
-module.exports = { login, createAdmin };
+module.exports = { login, logout, createAdmin };
