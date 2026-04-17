@@ -25,9 +25,22 @@ const aboutUsSchema = new mongoose.Schema(
       decorativeImage: String,
     },
 
+    whatWeBelieve: {
+      badge: String,
+      title: String,
+      cards: [
+        {
+          title: String,
+          description: String,
+          iconName: String,
+        },
+      ],
+    },
+
     workWithUs: {
       headline: String,
       buttonText: String,
+      videoUrl: String,
     },
 
     company: {
