@@ -75,6 +75,12 @@ const featuredCaseStudySchema = new mongoose.Schema(
     },
     stats: [statSchema],
     detailsContent: detailsContentSchema,
+    metaTags: {
+      title: { type: String, default: "" },
+      description: { type: String, default: "" },
+      keywords: [{ type: String }],
+      ogImage: { type: String, default: "" }
+    },
   },
   { timestamps: true }
 );
